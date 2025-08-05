@@ -1,7 +1,11 @@
 import streamlit as st
 import pandas as pd
+from random import seed, shuffle
 from distance import kbti_distance
 from datas import questions, type_labels
+
+seed(0)
+shuffle(questions)
 
 # 리커트 척도 옵션 및 점수
 likert_pairs = list(zip(

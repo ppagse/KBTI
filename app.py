@@ -20,7 +20,7 @@ if "responses" not in st.session_state:
 # 설문 페이지
 # -------------------------
 if page == "question":
-    st.title("성향 테스트")
+    st.title("KBTI 유형테스트")
 
     for idx, q in enumerate(questions):
         st.write(f"**Q{idx + 1}. {q['q']}**")
@@ -42,19 +42,15 @@ if page == "question":
 # 결과 페이지
 # -------------------------
 elif page == "result":
-    st.title("테스트 결과")
+    st.title("KBTI 테스트 결과")
 
     score = {"G": 0, "S": 0, "P": 0, "CONT": 0, "A": 0, "O": 0, "CONS": 0, "I": 0}
     for idx, q in enumerate(questions):
         val = st.session_state.responses.get(idx, 0)
         score[q["type"]] += val
-    score["A"] *= 2
-    score["O"] *= 2
-    score["CONS"] *= 2
-    score["I"] *= 2
 
     result = kbti_distance(list(score.values()))
-    st.subheader(f"당신의 성향은: {result}")
+    st.subheader(f"당신과 플레이스타일이 맞는 야구선수는: {result}")
     
     df = pd.DataFrame({
         "유형": [type_labels[t] for t in score],
